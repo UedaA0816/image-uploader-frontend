@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const ImageButton = styled.button`
+export const ImageCopyableButton = styled.button`
 background: #2F80ED;
 border-radius: 8px;
-padding:8px 16px;
+padding:9px 18px;
 color:#FFF;
 font-weight: 500;
 font-size: 12px;

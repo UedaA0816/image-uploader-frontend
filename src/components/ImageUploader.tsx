@@ -1,6 +1,7 @@
 import React from "react";
 import { ImageForm } from "./ImageForm";
 import { ImagePending } from "./ImagePending";
+import { ImageComplete } from "./ImageComplete";
 
 export const ImageUploader:React.VFC = ()=>{
   const imageSelectHandler = (file:File)=>{
@@ -9,7 +10,8 @@ export const ImageUploader:React.VFC = ()=>{
   return (
     <>
       {/* <ImageForm imageSelectHandler={imageSelectHandler} /> */}
-      <ImagePending />
+      {/* <ImagePending /> */}
+      <ImageComplete url="https://placehold.jp/1000x500.png"/>
     </>
   )
 }
