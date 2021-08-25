@@ -6,8 +6,12 @@ export const ImagePending:React.VFC = ()=>{
     <ImageContainer>
       <h1 className="text-lg font-medium text-gray-800">Uploading...</h1>
       <div className="mt-8 mb-2">
-        <progress style={{all:"revert",width:"340px"}}></progress>
+        <Progress />
       </div>
     </ImageContainer>
   )
+}
+
+const Progress = () => {
+  return <progress style={{all:"revert",width:"340px"}}></progress>
 }
