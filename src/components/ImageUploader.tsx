@@ -1,12 +1,13 @@
 import React from "react";
+import { ImageForm } from "./ImageForm";
 
 export const ImageUploader:React.VFC = ()=>{
+  const imageSelectHandler = (file:File)=>{
+    console.log(file)
+  }
   return (
-    <div className="bg-white shadow-xl rounded-lg px-7 py-8">
-      imageuploader<br/>
-      imageuploader<br/>
-      imageuploader<br/>
-      imageuploader<br/>
-    </div>
+    <>
+      <ImageForm imageSelectHandler={imageSelectHandler} />
+    </>
   )
 }
