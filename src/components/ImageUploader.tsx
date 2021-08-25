@@ -1,17 +1,46 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { ImageForm } from "./ImageForm";
 import { ImagePending } from "./ImagePending";
 import { ImageComplete } from "./ImageComplete";
 
+import { actions, initialState } from "./../reducer/actions/callapi";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
+
+import { environment } from "./../environment"
+
 export const ImageUploader:React.VFC = ()=>{
+
+  const [state, dispatch] = useReducer(actions,initialState)
+
   const imageSelectHandler = (file:File)=>{
-    console.log(file)
+    
+    dispatch({type:"init"})
+    dispatch({type:"pending"})
+    const params = new FormData();
+    params.append("file",file,file.name)
+    axios.post(environment.api,params).then((res)=>{
+      dispatch({type:"success",data:res.data})
+    }).catch((err)=>{
+      dispatch({type:"fail",data:err})
+    })
   }
+
+  const screen = () => {
+    if(state.status === "none") return <ImageForm imageSelectHandler={imageSelectHandler} />
+    if(state.status === "pending") return <ImagePending />
+    if(state.status === "success") return <ImageComplete url={state.data.url}/>
+    if(state.status === "fail") {
+      if(state.data.isAxiosError){
+        const error:AxiosError = state.data
+        return <p>Error :{JSON.stringify(error.toJSON())}</p>
+      }
+      return <p>Error</p>
+    }
+  }
+
   return (
     <>
-      {/* <ImageForm imageSelectHandler={imageSelectHandler} /> */}
-      {/* <ImagePending /> */}
-      <ImageComplete url="https://placehold.jp/1000x500.png"/>
+      {screen()}
     </>
   )
 }
