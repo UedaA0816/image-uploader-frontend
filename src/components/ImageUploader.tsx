@@ -1,5 +1,6 @@
 import React from "react";
 import { ImageForm } from "./ImageForm";
+import { ImagePending } from "./ImagePending";
 
 export const ImageUploader:React.VFC = ()=>{
   const imageSelectHandler = (file:File)=>{
@@ -7,7 +8,8 @@ export const ImageUploader:React.VFC = ()=>{
   }
   return (
     <>
-      <ImageForm imageSelectHandler={imageSelectHandler} />
+      {/* <ImageForm imageSelectHandler={imageSelectHandler} /> */}
+      <ImagePending />
     </>
   )
 }
