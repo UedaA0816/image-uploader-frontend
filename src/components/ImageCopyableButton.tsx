@@ -10,6 +10,7 @@ font-size: 12px;
 line-height: 16px;
 text-align: center;
 letter-spacing: -0.035em;
+width:90px;
 transition: background-color .3s;
 &:hover{
   background: #286DC7;
