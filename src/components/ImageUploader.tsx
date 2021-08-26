@@ -4,9 +4,11 @@ import { ImagePending } from "./ImagePending";
 import { ImageComplete } from "./ImageComplete";
 
 import { actions, initialState } from "./../reducer/actions/callapi";
-import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import axios, { AxiosError } from "axios";
 
 import { environment } from "./../environment"
+import { ImageError } from "./ImageError";
+import { StateContext } from "../context/state/state";
 
 export const ImageUploader:React.VFC = ()=>{
 
@@ -32,6 +34,10 @@ export const ImageUploader:React.VFC = ()=>{
     if(state.status === "fail") {
       if(state.data.isAxiosError){
         const error:AxiosError = state.data
+        if(error.response?.data.code){
+          const code = error.response?.data.code
+          if(code === 40301) return <ImageError message="This file cannot be uploaded" />
+        }
         return <p>Error :{JSON.stringify(error.toJSON())}</p>
       }
       return <p>Error</p>
@@ -40,7 +46,9 @@ export const ImageUploader:React.VFC = ()=>{
 
   return (
     <>
-      {screen()}
+      <StateContext.Provider value={{state,dispatch}}>
+        {screen()}
+      </StateContext.Provider>
     </>
   )
 }
